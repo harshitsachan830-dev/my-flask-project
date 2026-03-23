@@ -1,10 +1,28 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def home():
-    return "<h1>Flask is working perfectly</h1>"
+    return render_template("index.html", result=None, features=[], entered_values={})
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
+features = [
+    "mean radius",
+    "mean texture",
+    "mean perimeter",
+    "mean area",
+    "mean smoothness",
+    "mean compactness"
+]
+
+@app.route("/", methods=["GET", "POST"])
+def home():
+    return render_template(
+        "index.html",
+        result=None,
+        features=features,
+        entered_values={}
+    )
